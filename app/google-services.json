@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "909922602964",
+    "firebase_url": "https://messmanager-b250d.firebaseio.com",
+    "project_id": "messmanager-b250d",
+    "storage_bucket": "messmanager-b250d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909922602964:android:f7e4f20437c021ea",
+        "android_client_info": {
+          "package_name": "com.raghavi.messmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "909922602964-jg2sjvaier33qo592g50ntje2l9ab3ol.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.raghavi.messmanager",
+            "certificate_hash": "25342e7ca6f6bb2b113157c4bbe6b9ab18f23474"
+          }
+        },
+        {
+          "client_id": "909922602964-8ihc1nccbv82vrq95dm6ja9bm5nsv23t.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "909922602964-8ihc1nccbv82vrq95dm6ja9bm5nsv23t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjY3jPnds-JsDSaYBT4-CLwsQ1h7Sorbc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "909922602964-8ihc1nccbv82vrq95dm6ja9bm5nsv23t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
