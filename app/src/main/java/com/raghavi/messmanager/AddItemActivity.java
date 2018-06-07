@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 
 import static com.raghavi.messmanager.MainActivity.mFirebaseDatabase;
+import  static com.raghavi.messmanager.MainActivity.tabType;
 import static java.lang.Integer.parseInt;
 
 public class AddItemActivity extends AppCompatActivity {
@@ -46,22 +47,22 @@ public class AddItemActivity extends AppCompatActivity {
                 FoodItemData obj = new FoodItemData();
                 obj.setFoodItemName(foodItemNameString);
 
-                if(sharedPreferences.getString("CurrentFragment","none").equals("Snacks")) {
+                if(tabType.equals("Snacks")) {
                     SnacksFragment.dataset.add(obj);
                     SnacksDatabaseReference.push().setValue(foodItemNameString);
                 }
                 else
-                if(sharedPreferences.getString("CurrentFragment","none").equals("BreakFast")) {
+                if(tabType.equals("BreakFast")) {
                     BreakFastFragment.dataset.add(obj);
                     BreakFastDatabaseReference.push().setValue(foodItemNameString);
                 }
                 else
-                if(sharedPreferences.getString("CurrentFragment","none").equals("Lunch")) {
+                if(tabType.equals("Lunch")) {
                     LunchFragment.dataset.add(obj);
                     LunchDatabaseReference.push().setValue(foodItemNameString);
                 }
                 else
-                if(sharedPreferences.getString("CurrentFragment","none").equals("Dinner")) {
+                if(tabType.equals("Dinner")) {
                     DinnerFragment.dataset.add(obj);
                     DinnerDatabaseReference.push().setValue(foodItemNameString);
                 }

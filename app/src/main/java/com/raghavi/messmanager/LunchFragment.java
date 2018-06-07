@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import  static com.raghavi.messmanager.MainActivity.tabType;
+
 /**
  * Created by Raghavi on 6/3/2018.
  */
@@ -22,16 +24,17 @@ import java.util.ArrayList;
 public class LunchFragment extends Fragment {
     public static ArrayList<FoodItemData> dataset=new ArrayList<>();
 
+
     private RecyclerView mRecyclerView;
     private MessMenuAdapter adapter;
 
-    SharedPreferences sharedPreferences;
+    //SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
 
-        sharedPreferences=this.getActivity().getSharedPreferences("com.raghavi.messmanager", Context.MODE_PRIVATE);
+        //sharedPreferences=this.getActivity().getSharedPreferences("com.raghavi.messmanager", Context.MODE_PRIVATE);
 
         View view = inflater.inflate(R.layout.fragment_layout, container, false);
 
@@ -42,7 +45,8 @@ public class LunchFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext(),AddItemActivity.class);
-                sharedPreferences.edit().putString("CurrentFragment","Lunch").apply();
+                tabType="Lunch";
+          //      sharedPreferences.edit().putString("CurrentFragment","Lunch").apply();
                 startActivity(i);
             }
         });

@@ -30,21 +30,21 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
 
+import static com.firebase.ui.auth.AuthUI.*;
+import static com.raghavi.messmanager.IdentifyUserActivity.userTypeChosen;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final int RC_SIGN_IN = 1;
 
     protected static FirebaseDatabase mFirebaseDatabase;
+
+    public static String userType="";
+    public static String tabType;
+
     private DatabaseReference mUsersDatabaseReference;
     private DatabaseReference mEmployeeDatabaseReference;
-    private ChildEventListener mChildEventListener;
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
-
-
-    String userType="";
 
 
     SharedPreferences sharedPreferences;
@@ -53,6 +53,14 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sharedPreferences = getApplicationContext().getSharedPreferences("com.raghavi.messmanager", Context.MODE_PRIVATE);
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mUsersDatabaseReference = mFirebaseDatabase.getReference().child("students");
+        mEmployeeDatabaseReference= mFirebaseDatabase.getReference().child("employee");
+
+
+        //setting up tabs
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_Layout);
         tabLayout.addTab(tabLayout.newTab().setText("BreakFast"));
         tabLayout.addTab(tabLayout.newTab().setText("Lunch"));
@@ -72,38 +80,12 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
-
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mFirebaseAuth = FirebaseAuth.getInstance();
-
-        mUsersDatabaseReference = mFirebaseDatabase.getReference().child("students");
-        mEmployeeDatabaseReference= mFirebaseDatabase.getReference().child("employee");
-
-        sharedPreferences=getApplicationContext().getSharedPreferences("com.raghavi.messmanager", Context.MODE_PRIVATE);
-
-       // userType=getIntent().getExtras().getString("UserSelection","noneSelected");
-        Log.i("user type is",userType);
-        //start IdentifyUserActivity
-        userType=sharedPreferences.getString("UserSelection","noneSelected");
-        if(userType.equals("noneSelected"))
-        {
-            Intent i = new Intent(this, IdentifyUserActivity.class);
-            startActivity(i);
-            //userTypeSelected=true;
-          //  userType=getIntent().getExtras().getString("UserSelection","noneSelected");
-           //sharedPreferences.edit().putString("UserSelection",userType).apply();
-            userType=sharedPreferences.getString("UserSelection","noneSelected");
-        }
-
-
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -119,48 +101,29 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //starts login activity
+        if (!sharedPreferences.getBoolean("CheckUserLoggedIn", false)) {
 
-//
-//        mMessagesDatabaseReference.addChildEventListener(mChildEventListener);
-        mAuthStateListener=new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user=firebaseAuth.getCurrentUser();
-                if(user==null){
-                    //user is signed out
-                    startActivityForResult(
-                            AuthUI.getInstance()
-                                    .createSignInIntentBuilder()
-                                    .setAvailableProviders(Arrays.asList(
-                                            new AuthUI.IdpConfig.EmailBuilder().build(),
-                                            new AuthUI.IdpConfig.GoogleBuilder().build()))
-                                    .build(),
-                            RC_SIGN_IN);
-                }
-                Log.i("Email id",user.getEmail());
+            sharedPreferences.edit().putBoolean("CheckUserLoggedIn", true).apply();
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
+
+        }
+
+        if(sharedPreferences.getBoolean("userTypeChosen",false)) {
+            userType=sharedPreferences.getString("UserType","None");
+            if (userType.equals("Student")) {
+
+                mUsersDatabaseReference.push().setValue(sharedPreferences.getString("User_Email_id", "Unidentified"));
+            } else if (userType.equals("Employee"))
+                mEmployeeDatabaseReference.push().setValue(sharedPreferences.getString("User_Email_id", "Unidentified"));
+        }
 
 
-                sharedPreferences.edit().putString("User_Email_id",user.getEmail()).apply();
-
-                if(!sharedPreferences.getBoolean("CheckUserLoggedIn",false)) {
-                    //userLoggedIn=true;
-                    sharedPreferences.edit().putBoolean("CheckUserLoggedIn",true).apply();
-                    if (userType.equals("Student")) {
-
-                        mUsersDatabaseReference.push().setValue(sharedPreferences.getString("User_Email_id", "Unidentified"));
-                    } else if (userType.equals("Employee"))
-                        mEmployeeDatabaseReference.push().setValue(sharedPreferences.getString("User_Email_id", "Unidentified"));
-                }
 
 
-            }
-
-
-        };
-
-        Log.i("Logged in user is ",sharedPreferences.getString("User_Email_id","Unidentified"));
-        //mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
+
 
 
     @Override
@@ -220,34 +183,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if(mAuthStateListener!=null) {
-            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
-        }
-
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==RC_SIGN_IN)
-        {
-            if(resultCode==RESULT_OK)
-            {
-                Toast.makeText(this,"Signed in!",Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(this,"Sign in Cancelled!",Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        }
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
-
-    }
 
 }
+

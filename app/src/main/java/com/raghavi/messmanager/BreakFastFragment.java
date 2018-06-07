@@ -20,23 +20,24 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import  static com.raghavi.messmanager.MainActivity.tabType;
+
 /**
  * Created by Raghavi on 6/3/2018.
  */
 
 public class BreakFastFragment extends Fragment {
     public static ArrayList<FoodItemData> dataset=new ArrayList<>();
-    public static ArrayList<String> items=new ArrayList<>();
 
     private RecyclerView mRecyclerView;
     private MessMenuAdapter adapter;
-    SharedPreferences sharedPreferences;
+    //SharedPreferences sharedPreferences;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        sharedPreferences=this.getActivity().getSharedPreferences("com.raghavi.messmanager", Context.MODE_PRIVATE);
+      //  sharedPreferences=this.getActivity().getSharedPreferences("com.raghavi.messmanager", Context.MODE_PRIVATE);
 
         View view = inflater.inflate(R.layout.fragment_layout, container, false);
 
@@ -45,7 +46,8 @@ public class BreakFastFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext(),AddItemActivity.class);
-                sharedPreferences.edit().putString("CurrentFragment","BreakFast").apply();
+                tabType="BreakFast";
+        //        sharedPreferences.edit().putString("CurrentFragment","BreakFast").apply();
                 startActivity(i);
             }
         });

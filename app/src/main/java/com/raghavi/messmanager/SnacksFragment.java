@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import static com.raghavi.messmanager.AddItemActivity.SnacksDatabaseReference;
 import static com.raghavi.messmanager.MainActivity.mFirebaseDatabase;
 
+import  static com.raghavi.messmanager.MainActivity.tabType;
+
 /**
  * Created by Raghavi on 6/3/2018.
  */
@@ -33,17 +35,18 @@ import static com.raghavi.messmanager.MainActivity.mFirebaseDatabase;
 public class SnacksFragment extends Fragment {
     public static ArrayList<FoodItemData> dataset=new ArrayList<>();
 
+
     private RecyclerView mRecyclerView;
     private MessMenuAdapter adapter;
-    SharedPreferences sharedPreferences;
+    //SharedPreferences sharedPreferences;
 
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        sharedPreferences=this.getActivity().getSharedPreferences("com.raghavi.messmanager", Context.MODE_PRIVATE);
-//
+//        sharedPreferences=this.getActivity().getSharedPreferences("com.raghavi.messmanager", Context.MODE_PRIVATE);
+
 
         SnacksDatabaseReference=mFirebaseDatabase.getReference().child("snacks");
       SnacksDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -93,7 +96,8 @@ public class SnacksFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getContext(),AddItemActivity.class);
-                sharedPreferences.edit().putString("CurrentFragment","Snacks").apply();
+                tabType="Snacks";
+                //sharedPreferences.edit().putString("CurrentFragment","Snacks").apply();
                 startActivity(i);
             }
         });
