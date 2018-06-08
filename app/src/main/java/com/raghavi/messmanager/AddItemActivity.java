@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import static com.raghavi.messmanager.MainActivity.mFirebaseDatabase;
 import  static com.raghavi.messmanager.MainActivity.tabType;
@@ -26,9 +27,11 @@ public class AddItemActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
 
     protected static DatabaseReference SnacksDatabaseReference;
+    private FirebaseDatabase firebaseDatabase;
     private DatabaseReference BreakFastDatabaseReference;
     private DatabaseReference LunchDatabaseReference;
     private DatabaseReference DinnerDatabaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,6 @@ public class AddItemActivity extends AppCompatActivity {
         addItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Float per;
 
                 String foodItemNameString = addItemEditText.getText().toString();
 
@@ -81,10 +83,12 @@ public class AddItemActivity extends AppCompatActivity {
     {
         addItemButton= (Button) findViewById(R.id.add_item_button);
         addItemEditText = (EditText) findViewById(R.id.add_item_edit_text);
-        SnacksDatabaseReference = mFirebaseDatabase.getReference().child("snacks");
-        BreakFastDatabaseReference = mFirebaseDatabase.getReference().child("breakfast");
-        LunchDatabaseReference = mFirebaseDatabase.getReference().child("lunch");
-        DinnerDatabaseReference = mFirebaseDatabase.getReference().child("dinner");
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        SnacksDatabaseReference = firebaseDatabase.getReference().child("snacks");
+        BreakFastDatabaseReference = firebaseDatabase.getReference().child("breakfast");
+        LunchDatabaseReference = firebaseDatabase.getReference().child("lunch");
+        DinnerDatabaseReference = firebaseDatabase.getReference().child("dinner");
 
         sharedPreferences=getApplicationContext().getSharedPreferences("com.raghavi.messmanager", Context.MODE_PRIVATE);
     }

@@ -84,6 +84,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             // Signed in
 
             sharedPreferences.edit().putString("User_Email_id",user.getEmail()).apply();
+            Log.i("Email id",user.getEmail());
             Intent i=new Intent(getApplicationContext(),IdentifyUserActivity.class);
             startActivity(i);
 

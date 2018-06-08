@@ -22,6 +22,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -31,7 +33,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Arrays;
 
 import static com.firebase.ui.auth.AuthUI.*;
-import static com.raghavi.messmanager.IdentifyUserActivity.userTypeChosen;
 
 
 public class MainActivity extends AppCompatActivity
@@ -40,14 +41,11 @@ public class MainActivity extends AppCompatActivity
 
     protected static FirebaseDatabase mFirebaseDatabase;
 
-    public static String userType="";
+    public static String userType = "";
     public static String tabType;
 
-    private DatabaseReference mUsersDatabaseReference;
-    private DatabaseReference mEmployeeDatabaseReference;
-
-
     SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,9 +54,6 @@ public class MainActivity extends AppCompatActivity
         sharedPreferences = getApplicationContext().getSharedPreferences("com.raghavi.messmanager", Context.MODE_PRIVATE);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mUsersDatabaseReference = mFirebaseDatabase.getReference().child("students");
-        mEmployeeDatabaseReference= mFirebaseDatabase.getReference().child("employee");
-
 
         //setting up tabs
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_Layout);
@@ -110,21 +105,7 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        if(sharedPreferences.getBoolean("userTypeChosen",false)) {
-            userType=sharedPreferences.getString("UserType","None");
-            if (userType.equals("Student")) {
-
-                mUsersDatabaseReference.push().setValue(sharedPreferences.getString("User_Email_id", "Unidentified"));
-            } else if (userType.equals("Employee"))
-                mEmployeeDatabaseReference.push().setValue(sharedPreferences.getString("User_Email_id", "Unidentified"));
-        }
-
-
-
-
     }
-
-
 
     @Override
     public void onBackPressed() {
@@ -152,12 +133,21 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_signout) {
-            AuthUI.getInstance().signOut(this);
+            AuthUI.getInstance()
+                    .signOut(this)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        public void onComplete(@NonNull Task<Void> task) {
+                            // user is now signed out
+                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                            finish();
+                        }
+                    });
+        }
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
-    }
+
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -183,6 +173,7 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 }
 

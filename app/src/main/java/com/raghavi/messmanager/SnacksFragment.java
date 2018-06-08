@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -38,28 +39,23 @@ public class SnacksFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private MessMenuAdapter adapter;
-    //SharedPreferences sharedPreferences;
-
-
+    ValueEventListener eventListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-//        sharedPreferences=this.getActivity().getSharedPreferences("com.raghavi.messmanager", Context.MODE_PRIVATE);
-
-
+        View view = inflater.inflate(R.layout.fragment_layout, container, false);
         SnacksDatabaseReference=mFirebaseDatabase.getReference().child("snacks");
-      SnacksDatabaseReference.addValueEventListener(new ValueEventListener() {
+
+        eventListener=new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot arraySnapshot: dataSnapshot.getChildren()) {
-                    // TODO: handle the post
-
-                    FoodItemData obj = new FoodItemData(arraySnapshot.getValue(FoodItemData.class));
-                    //FoodItemData obj=dataSnapshot.getValue(FoodItemData.class);
-                    Log.i("Data Read :", String.valueOf(arraySnapshot.getValue(FoodItemData.class)));
+                for(DataSnapshot ds:dataSnapshot.getChildren())
+                {
+                    FoodItemData obj = new FoodItemData(String.valueOf(ds.getValue()));
+                    Log.i("FOOD ITEM",ds.getKey());
                     dataset.add(obj);
+
                 }
             }
 
@@ -67,29 +63,10 @@ public class SnacksFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
-    /*  SnacksDatabaseReference.addChildEventListener(new ChildEventListener() {
-          @Override
-          public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-              FoodItemData obj=new FoodItemData(String.valueOf(dataSnapshot.getValue(FoodItemData.class)));
-              //FoodItemData obj=dataSnapshot.getValue(FoodItemData.class);
-              Log.i("Data Read :", String.valueOf(dataSnapshot.getValue(FoodItemData.class)));
-              dataset.add(obj);
-              adapter.notifyDataSetChanged();
-          }
 
-          @Override
-          public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {}
-          @Override
-          public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {}
-          @Override
-          public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {}
-          @Override
-          public void onCancelled(@NonNull DatabaseError databaseError) {}
-      });
+        };
+        SnacksDatabaseReference.addListenerForSingleValueEvent(eventListener);
 
-*/
-        View view = inflater.inflate(R.layout.fragment_layout, container, false);
 
         FloatingActionButton fab=(FloatingActionButton)view.findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -115,5 +92,12 @@ public class SnacksFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        SnacksDatabaseReference.removeEventListener(eventListener);
+        eventListener=null;
+
+    }
 }
 

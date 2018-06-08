@@ -28,13 +28,9 @@ public class LunchFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private MessMenuAdapter adapter;
 
-    //SharedPreferences sharedPreferences;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-
-        //sharedPreferences=this.getActivity().getSharedPreferences("com.raghavi.messmanager", Context.MODE_PRIVATE);
 
         View view = inflater.inflate(R.layout.fragment_layout, container, false);
 
@@ -46,7 +42,6 @@ public class LunchFragment extends Fragment {
             public void onClick(View view) {
                 Intent i = new Intent(getContext(),AddItemActivity.class);
                 tabType="Lunch";
-          //      sharedPreferences.edit().putString("CurrentFragment","Lunch").apply();
                 startActivity(i);
             }
         });
