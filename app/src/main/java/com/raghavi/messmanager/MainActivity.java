@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(i);
 
         }
+        userType=sharedPreferences.getString("UserType","None");
 
     }
 

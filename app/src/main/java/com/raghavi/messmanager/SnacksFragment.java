@@ -28,6 +28,7 @@ import static com.raghavi.messmanager.AddItemActivity.SnacksDatabaseReference;
 import static com.raghavi.messmanager.MainActivity.mFirebaseDatabase;
 
 import  static com.raghavi.messmanager.MainActivity.tabType;
+import static com.raghavi.messmanager.MainActivity.userType;
 
 /**
  * Created by Raghavi on 6/3/2018.
@@ -53,10 +54,10 @@ public class SnacksFragment extends Fragment {
                 for(DataSnapshot ds:dataSnapshot.getChildren())
                 {
                     FoodItemData obj = new FoodItemData(String.valueOf(ds.getValue()));
-                    Log.i("FOOD ITEM",ds.getKey());
+                    Log.i("FOOD",String.valueOf(obj));
                     dataset.add(obj);
-
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -67,15 +68,18 @@ public class SnacksFragment extends Fragment {
         };
         SnacksDatabaseReference.addListenerForSingleValueEvent(eventListener);
 
-
         FloatingActionButton fab=(FloatingActionButton)view.findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext(),AddItemActivity.class);
-                tabType="Snacks";
-                //sharedPreferences.edit().putString("CurrentFragment","Snacks").apply();
-                startActivity(i);
+                if(userType.equals("Student"))
+                {
+                    orderSnacks();
+                }
+                else if(userType.equals("Employee"))
+                {
+                    changeMenu();
+                }
             }
         });
 
@@ -98,6 +102,17 @@ public class SnacksFragment extends Fragment {
         SnacksDatabaseReference.removeEventListener(eventListener);
         eventListener=null;
 
+    }
+    public void orderSnacks()
+    {
+        startActivity(new Intent(getContext(),OrderSnacksActivity.class));
+    }
+
+    public void changeMenu()
+    {
+        Intent i = new Intent(getContext(),AddItemActivity.class);
+        tabType="Snacks";
+        startActivity(i);
     }
 }
 

@@ -28,9 +28,9 @@ public class AddItemActivity extends AppCompatActivity {
 
     protected static DatabaseReference SnacksDatabaseReference;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference BreakFastDatabaseReference;
-    private DatabaseReference LunchDatabaseReference;
-    private DatabaseReference DinnerDatabaseReference;
+    protected static DatabaseReference BreakFastDatabaseReference;
+    protected static DatabaseReference LunchDatabaseReference;
+    protected static DatabaseReference DinnerDatabaseReference;
 
 
     @Override

@@ -23,6 +23,7 @@ public class IdentifyUserActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference mUsersDatabaseReference;
     private DatabaseReference mEmployeeDatabaseReference;
+    protected static String userEmailID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +35,14 @@ public class IdentifyUserActivity extends AppCompatActivity {
        mUsersDatabaseReference = firebaseDatabase.getReference().child("students");
         mEmployeeDatabaseReference= firebaseDatabase.getReference().child("employee");
 
-
-
+        userEmailID=sharedPreferences.getString("User_Email_id", "Unidentified");
     }
 
    public void onMessPersonButtonClick(View view)
     {
-        mUsersDatabaseReference.push().setValue(sharedPreferences.getString("User_Email_id", "Unidentified"));
+        //mUsersDatabaseReference.push().setValue(sharedPreferences.getString("User_Email_id", "Unidentified"));
 
+        mUsersDatabaseReference.push().setValue(userEmailID);
         Intent i = new Intent(this, MainActivity.class);
         sharedPreferences.edit().putString("UserType","Employee").apply();
         startActivity(i);
@@ -50,7 +51,7 @@ public class IdentifyUserActivity extends AppCompatActivity {
     }
 
     public void onStudentRadioButtonClick(View view) {
-        mEmployeeDatabaseReference.push().setValue(sharedPreferences.getString("User_Email_id", "Unidentified"));
+        mEmployeeDatabaseReference.push().setValue(userEmailID);
 
         Intent i = new Intent(this, MainActivity.class);
         sharedPreferences.edit().putString("UserType","Student").apply();

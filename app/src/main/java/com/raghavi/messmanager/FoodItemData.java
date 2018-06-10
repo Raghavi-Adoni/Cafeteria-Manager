@@ -18,6 +18,11 @@ public class FoodItemData {
 
     }
 
+    @Override
+    public String toString() {
+        return foodItemName;
+    }
+
     public FoodItemData()
     {
         foodItemName= "";
