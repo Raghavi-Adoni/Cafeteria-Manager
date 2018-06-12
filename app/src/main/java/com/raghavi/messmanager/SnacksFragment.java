@@ -78,7 +78,8 @@ public class SnacksFragment extends Fragment {
                 }
                 else if(userType.equals("Employee"))
                 {
-                    changeMenu();
+                    //changeMenu();
+                    viewOrders();
                 }
             }
         });
@@ -113,6 +114,11 @@ public class SnacksFragment extends Fragment {
         Intent i = new Intent(getContext(),AddItemActivity.class);
         tabType="Snacks";
         startActivity(i);
+    }
+
+    public void viewOrders()
+    {
+        startActivity(new Intent(getContext(),ViewOrderActivity.class));
     }
 }
 

@@ -24,7 +24,8 @@
         <activity android:name=".IdentifyUserActivity" />
         <activity android:name=".AddItemActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".OrderSnacksActivity"></activity>
+        <activity android:name=".OrderSnacksActivity" />
+        <activity android:name=".ViewOrderActivity"></activity>
     </application>
 
 </manifest>

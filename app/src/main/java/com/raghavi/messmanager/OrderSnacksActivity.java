@@ -3,6 +3,7 @@ package com.raghavi.messmanager;
 import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -13,6 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static com.raghavi.messmanager.IdentifyUserActivity.userEmailID;
 import static com.raghavi.messmanager.SnacksFragment.dataset;
@@ -39,9 +41,11 @@ public class OrderSnacksActivity extends AppCompatActivity {
 
     }
 
-    public void onOrderSnakcsButtonCLick(View view)
+    public void onOrderSnacksButtonCLick(View view)
     {
-        OrderFormat obj=new OrderFormat(snacksSelectionSpinner.getSelectedItem().toString(),userEmailID);
+       // String mytime = java.text.DateFormat.getTimeInstance().format(Calendar.getInstance().getTime());
+        String dateTime = (DateFormat.format("dd-MM-yyyy hh:mm:ss", new java.util.Date()).toString());
+        OrderFormat obj=new OrderFormat(snacksSelectionSpinner.getSelectedItem().toString(),userEmailID,dateTime);
         snacksOrderDatabaseReference.push().setValue(obj);
     }
 }

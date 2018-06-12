@@ -57,7 +57,7 @@ public class BreakFastFragment extends Fragment {
                 for(DataSnapshot ds:dataSnapshot.getChildren())
                 {
                     FoodItemData obj = new FoodItemData(String.valueOf(ds.getValue()));
-                    Log.i("FOOD ITEM",ds.getKey());
+
                     dataset.add(obj);
 
                 }
