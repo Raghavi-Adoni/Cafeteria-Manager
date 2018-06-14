@@ -33,7 +33,7 @@ public class OrderSnacksActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_snacks);
 
         snacksSelectionSpinner = findViewById(R.id.snacks_selection_spinner);
-        snacksAdapter=new ArrayAdapter<FoodItemData>(this,android.R.layout.simple_list_item_1,dataset);
+        snacksAdapter=new ArrayAdapter<FoodItemData>(this,R.layout.spinner_item,dataset);
         snacksSelectionSpinner.setAdapter(snacksAdapter);
 
         firebaseDatabase = FirebaseDatabase.getInstance();

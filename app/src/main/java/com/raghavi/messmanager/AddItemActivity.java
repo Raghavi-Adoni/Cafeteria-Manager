@@ -49,26 +49,26 @@ public class AddItemActivity extends AppCompatActivity {
                 FoodItemData obj = new FoodItemData();
                 obj.setFoodItemName(foodItemNameString);
 
-                if(tabType.equals("Snacks")) {
-                    SnacksFragment.dataset.add(obj);
-                    SnacksDatabaseReference.push().setValue(foodItemNameString);
-                }
-                else
-                if(tabType.equals("BreakFast")) {
-                    BreakFastFragment.dataset.add(obj);
-                    BreakFastDatabaseReference.push().setValue(foodItemNameString);
-                }
-                else
-                if(tabType.equals("Lunch")) {
-                    LunchFragment.dataset.add(obj);
-                    LunchDatabaseReference.push().setValue(foodItemNameString);
-                }
-                else
-                if(tabType.equals("Dinner")) {
-                    DinnerFragment.dataset.add(obj);
-                    DinnerDatabaseReference.push().setValue(foodItemNameString);
-                }
+                if(foodItemNameString.equals(""))
+                {
+                    Toast.makeText(getApplicationContext(),"Please enter the name",Toast.LENGTH_SHORT).show();
 
+                }
+                else {
+                    if (tabType.equals("Snacks")) {
+                        SnacksFragment.dataset.add(obj);
+                        SnacksDatabaseReference.push().setValue(foodItemNameString);
+                    } else if (tabType.equals("BreakFast")) {
+                        BreakFastFragment.dataset.add(obj);
+                        BreakFastDatabaseReference.push().setValue(foodItemNameString);
+                    } else if (tabType.equals("Lunch")) {
+                        LunchFragment.dataset.add(obj);
+                        LunchDatabaseReference.push().setValue(foodItemNameString);
+                    } else if (tabType.equals("Dinner")) {
+                        DinnerFragment.dataset.add(obj);
+                        DinnerDatabaseReference.push().setValue(foodItemNameString);
+                    }
+                }
                 Intent in = new Intent(getApplicationContext(), MainActivity.class);
                 in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(in);

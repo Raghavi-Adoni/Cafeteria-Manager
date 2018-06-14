@@ -51,6 +51,7 @@ public class BreakFastFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_layout, container, false);
         BreakFastDatabaseReference=mFirebaseDatabase.getReference().child("breakfast");
 
+        dataset.clear();
         eventListener=new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

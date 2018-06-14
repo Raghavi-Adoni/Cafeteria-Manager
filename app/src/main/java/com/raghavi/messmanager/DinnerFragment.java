@@ -44,6 +44,7 @@ public class DinnerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_layout, container, false);
 
         DinnerDatabaseReference=mFirebaseDatabase.getReference().child("dinner");
+        dataset.clear();
 
         eventListener=new ValueEventListener() {
             @Override

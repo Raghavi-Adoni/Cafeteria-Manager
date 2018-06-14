@@ -48,6 +48,8 @@ public class SnacksFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_layout, container, false);
         SnacksDatabaseReference=mFirebaseDatabase.getReference().child("snacks");
 
+        dataset.clear();
+
         eventListener=new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

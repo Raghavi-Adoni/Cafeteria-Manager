@@ -4,31 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ADD8E6"
     tools:context="com.raghavi.messmanager.IdentifyUserActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/identify_user_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
         android:text="Choose :"
+        android:textColor="#000000"
         android:textSize="40sp"
-        android:textStyle="bold"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"/>
-    <RadioButton
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Student"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/identify_user_text_view"
+        android:layout_marginTop="23dp"
+        android:paddingLeft="15dp"
+        android:text="Select Employee if you are a part of the associated organisation else select Student."
+        android:textColor="#696969"
+        android:textSize="20sp" />
+
+
+    <RadioButton
         android:id="@+id/identify_student_radio_button"
-        android:layout_below="@id/identify_user_text_view"
-        android:onClick="onStudentRadioButtonClick"/>
-    <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mess Employee"
+        android:layout_alignLeft="@+id/identify_mess_person_radio_button"
+        android:layout_alignStart="@+id/identify_mess_person_radio_button"
+        android:layout_below="@+id/description"
+        android:layout_marginTop="35dp"
+        android:checked="true"
+        android:onClick="onStudentRadioButtonClick"
+        android:text="Student"
+        android:textSize="30sp"
+         />
+
+    <RadioButton
         android:id="@+id/identify_mess_person_radio_button"
-        android:layout_below="@id/identify_student_radio_button"
-        android:onClick="onMessPersonButtonClick"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/identify_student_radio_button"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="31dp"
+        android:onClick="onMessPersonButtonClick"
+        android:text="Employee"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        />
 
 
 </RelativeLayout>

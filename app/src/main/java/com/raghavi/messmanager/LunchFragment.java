@@ -46,6 +46,8 @@ public class LunchFragment extends Fragment {
 
         LunchDatabaseReference=mFirebaseDatabase.getReference().child("lunch");
 
+        dataset.clear();
+
         eventListener=new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
