@@ -11,22 +11,20 @@ public class OrderFormat {
     private String userID;
     private String time;
     private String orderStatus;
+    private String uniqueID;
 
-
-
-    public  OrderFormat(String foodItemNameName,String userID,String time,String orderStatus) {
+    public  OrderFormat(String foodItemNameName,String userID,String time,String orderStatus,String uniqueID) {
         this.foodItemName = foodItemNameName;
         this.userID=userID;
         this.time=time;
         this.orderStatus=orderStatus;
-
-
+        this.uniqueID=uniqueID;
     }
 
 
     @Override
     public String toString() {
-        return foodItemName+userID+time+orderStatus;
+        return foodItemName+userID+time+orderStatus+uniqueID;
     }
 
 
@@ -71,5 +69,14 @@ public class OrderFormat {
         this.orderStatus = orderStatus;
     }
 
+    public String getuniqueID() {
+
+        return uniqueID;
+    }
+
+    public void setuniqueID(String uniqueID) {
+
+        this.uniqueID = uniqueID;
+    }
 
 }

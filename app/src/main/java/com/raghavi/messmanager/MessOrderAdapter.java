@@ -75,9 +75,11 @@ public class MessOrderAdapter extends RecyclerView.Adapter<MessOrderAdapter.View
 
         public TextView orderedFoodItemTextView;
         public TextView userTextView;
-        public TextView orderTimeTextView;
+        public TextView orderTimeTextView; 
         public Button cancelOrderButton;
         public Button orderReadyButton;
+
+        String uniqueID;
 
         private DatabaseReference ref;
         FirebaseDatabase firebaseDatabase;
@@ -90,8 +92,10 @@ public class MessOrderAdapter extends RecyclerView.Adapter<MessOrderAdapter.View
             this.orderedFoodItemTextView = (TextView) itemView.findViewById(R.id.ordered_item_text_view_mess_side);
             this.userTextView = (TextView) itemView.findViewById(R.id.user_text_view);
             this.orderTimeTextView = (TextView) itemView.findViewById(R.id.order_time_text_view);
+
             this.cancelOrderButton = (Button) itemView.findViewById(R.id.cancel_order_button);
             this.orderReadyButton = (Button) itemView.findViewById(R.id.order_ready_button);
+
 
          //   sharedPreferences.getSharedPreferences("com.raghavi.messmanager", Context.MODE_PRIVATE);
 
@@ -177,7 +181,8 @@ public class MessOrderAdapter extends RecyclerView.Adapter<MessOrderAdapter.View
         {
             firebaseDatabase=FirebaseDatabase.getInstance();
             orderViewedDatabaseReference=firebaseDatabase.getReference().child("order_viewed");
-            OrderFormat obj1=new OrderFormat(orderedFoodItemTextView.getText().toString(),userTextView.getText().toString(),orderTimeTextView.getText().toString(),orderStatus);
+             uniqueID=orderTimeTextView.getText().toString().substring(10)+userTextView.getText().toString().substring(5);
+            OrderFormat obj1=new OrderFormat(orderedFoodItemTextView.getText().toString(),userTextView.getText().toString(),orderTimeTextView.getText().toString(),orderStatus,uniqueID);
             orderViewedDatabaseReference.push().setValue(obj1);
         }
 

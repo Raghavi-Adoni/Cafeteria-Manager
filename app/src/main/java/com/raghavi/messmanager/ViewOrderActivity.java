@@ -49,7 +49,7 @@ public class ViewOrderActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds:dataSnapshot.getChildren())
                 {
-                   OrderFormat obj = new OrderFormat(String.valueOf(ds.child("foodItemName").getValue()),String.valueOf(ds.child("userID").getValue()),String.valueOf(ds.child("time").getValue()),String.valueOf(ds.child("orderStatus")));
+                   OrderFormat obj = new OrderFormat(String.valueOf(ds.child("foodItemName").getValue()),String.valueOf(ds.child("userID").getValue()),String.valueOf(ds.child("time").getValue()),String.valueOf(ds.child("orderStatus")),String.valueOf(ds.child("uniqueID").getValue()));
                    // OrderFormat obj=new OrderFormat(ds.getValue());
                     Log.i("FOOD",String.valueOf(obj));
                     ordersDataset.add(obj);

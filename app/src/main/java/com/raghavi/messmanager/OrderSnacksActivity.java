@@ -28,6 +28,8 @@ public class OrderSnacksActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference snacksOrderDatabaseReference;
 
+    public String uniqueID;
+
     SharedPreferences sharedPreferences;
 
 
@@ -53,7 +55,10 @@ public class OrderSnacksActivity extends AppCompatActivity {
     {
        // String mytime = java.text.DateFormat.getTimeInstance().format(Calendar.getInstance().getTime());
         String dateTime = (DateFormat.format("dd-MM-yyyy hh:mm:ss", new java.util.Date()).toString());
-        OrderFormat obj1=new OrderFormat(snacksSelectionSpinner.getSelectedItem().toString(),sharedPreferences.getString("User_Email_id", "Unidentified"),dateTime,"Not Ready");
+        String userID=sharedPreferences.getString("User_Email_id", "Unidentified");
+        String uniqueID=dateTime.substring(10)+userID.substring(5);
+
+        OrderFormat obj1=new OrderFormat(snacksSelectionSpinner.getSelectedItem().toString(),userID,dateTime,"Not Ready",uniqueID);
         snacksOrderDatabaseReference.push().setValue(obj1);
 
        // obj.onTokenRefresh();
