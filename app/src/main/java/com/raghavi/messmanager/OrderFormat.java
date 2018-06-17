@@ -1,5 +1,7 @@
 package com.raghavi.messmanager;
 
+import android.content.SharedPreferences;
+
 /**
  * Created by Raghavi on 6/10/2018.
  */
@@ -8,26 +10,25 @@ public class OrderFormat {
     private String foodItemName;
     private String userID;
     private String time;
+    private String orderStatus;
 
-    public  OrderFormat(String foodItemNameName,String userID,String time) {
+
+
+    public  OrderFormat(String foodItemNameName,String userID,String time,String orderStatus) {
         this.foodItemName = foodItemNameName;
         this.userID=userID;
         this.time=time;
+        this.orderStatus=orderStatus;
+
 
     }
+
 
     @Override
     public String toString() {
-        return foodItemName+userID+time;
+        return foodItemName+userID+time+orderStatus;
     }
 
-    public  OrderFormat()
-    {
-        foodItemName= "";
-        userID="";
-        time="";
-
-    }
 
 
     public String getFoodItemName() {
@@ -59,4 +60,16 @@ public class OrderFormat {
     public String getTime() {
         return time;
     }
+
+    public String getOrderStatus() {
+
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+
+        this.orderStatus = orderStatus;
+    }
+
+
 }

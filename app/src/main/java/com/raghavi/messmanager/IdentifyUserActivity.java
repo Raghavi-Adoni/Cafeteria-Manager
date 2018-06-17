@@ -23,7 +23,7 @@ public class IdentifyUserActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference mUsersDatabaseReference;
     private DatabaseReference mEmployeeDatabaseReference;
-    protected static String userEmailID;
+    public static String userEmailID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class IdentifyUserActivity extends AppCompatActivity {
        mUsersDatabaseReference = firebaseDatabase.getReference().child("students");
         mEmployeeDatabaseReference= firebaseDatabase.getReference().child("employee");
 
-        userEmailID=sharedPreferences.getString("User_Email_id", "Unidentified");
+       // userEmailID=sharedPreferences.getString("User_Email_id", "Unidentified");
     }
 
    public void onMessPersonButtonClick(View view)
@@ -57,5 +57,7 @@ public class IdentifyUserActivity extends AppCompatActivity {
         sharedPreferences.edit().putString("UserType","Student").apply();
         startActivity(i);
         finish();
+
+        userEmailID=sharedPreferences.getString("User_Email_id", "Unidentified");
     }
 }

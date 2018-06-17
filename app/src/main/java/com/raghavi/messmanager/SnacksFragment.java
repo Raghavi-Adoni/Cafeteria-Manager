@@ -80,8 +80,8 @@ public class SnacksFragment extends Fragment {
                 }
                 else if(userType.equals("Employee"))
                 {
-                    //changeMenu();
-                    viewOrders();
+                    changeMenu();
+                   // viewOrders();
                 }
             }
         });

@@ -1,6 +1,8 @@
 package com.raghavi.messmanager;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -26,6 +28,9 @@ public class OrderSnacksActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference snacksOrderDatabaseReference;
 
+    SharedPreferences sharedPreferences;
+
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +38,14 @@ public class OrderSnacksActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_snacks);
 
         snacksSelectionSpinner = findViewById(R.id.snacks_selection_spinner);
+        sharedPreferences=getApplicationContext().getSharedPreferences("com.raghavi.messmanager", Context.MODE_PRIVATE);
+
         snacksAdapter=new ArrayAdapter<FoodItemData>(this,R.layout.spinner_item,dataset);
         snacksSelectionSpinner.setAdapter(snacksAdapter);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         snacksOrderDatabaseReference = firebaseDatabase.getReference().child("snacks_order");
+
 
     }
 
@@ -45,7 +53,9 @@ public class OrderSnacksActivity extends AppCompatActivity {
     {
        // String mytime = java.text.DateFormat.getTimeInstance().format(Calendar.getInstance().getTime());
         String dateTime = (DateFormat.format("dd-MM-yyyy hh:mm:ss", new java.util.Date()).toString());
-        OrderFormat obj=new OrderFormat(snacksSelectionSpinner.getSelectedItem().toString(),userEmailID,dateTime);
-        snacksOrderDatabaseReference.push().setValue(obj);
+        OrderFormat obj1=new OrderFormat(snacksSelectionSpinner.getSelectedItem().toString(),sharedPreferences.getString("User_Email_id", "Unidentified"),dateTime,"Not Ready");
+        snacksOrderDatabaseReference.push().setValue(obj1);
+
+       // obj.onTokenRefresh();
     }
 }

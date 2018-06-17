@@ -158,7 +158,14 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_orders) {
+            if(userType.equals("Employee")) {
+                startActivity(new Intent(this, ViewOrderActivity.class));
+            }
+            else if(userType.equals("Student"))
+            {
+                startActivity(new Intent(this, UsersViewOrdersActivity.class));
+            }
 
         } else if (id == R.id.nav_slideshow) {
 

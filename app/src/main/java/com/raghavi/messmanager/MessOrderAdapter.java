@@ -8,6 +8,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,7 +28,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+
 import java.util.ArrayList;
+
+import static com.raghavi.messmanager.IdentifyUserActivity.userEmailID;
 
 
 /**
@@ -43,8 +47,6 @@ public class MessOrderAdapter extends RecyclerView.Adapter<MessOrderAdapter.View
         this.data = data;
         this.context = context;
     }
-
-
 
     @Override
     public MessOrderAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -78,8 +80,10 @@ public class MessOrderAdapter extends RecyclerView.Adapter<MessOrderAdapter.View
         public Button orderReadyButton;
 
         private DatabaseReference ref;
+        FirebaseDatabase firebaseDatabase;
+        DatabaseReference orderViewedDatabaseReference;
 
-
+        SharedPreferences sharedPreferences;
 
         public ViewHolder(final View itemView) {
             super(itemView);
@@ -89,33 +93,16 @@ public class MessOrderAdapter extends RecyclerView.Adapter<MessOrderAdapter.View
             this.cancelOrderButton = (Button) itemView.findViewById(R.id.cancel_order_button);
             this.orderReadyButton = (Button) itemView.findViewById(R.id.order_ready_button);
 
-            Log.i("VALUE", orderedFoodItemTextView.getText().toString());
+         //   sharedPreferences.getSharedPreferences("com.raghavi.messmanager", Context.MODE_PRIVATE);
+
+            Log.i("VALUE",userTextView.getText().toString());
 
             orderReadyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Log.i("TEXTVIEW VALUE", orderedFoodItemTextView.getText().toString());
-
-                    ref = FirebaseDatabase.getInstance().getReference();
-                     Query foodItemQuery= ref.child("snacks_order").orderByChild("foodItemName").equalTo(orderedFoodItemTextView.getText().toString());
-
-                    foodItemQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                                snapshot.getRef().removeValue();
-                                break;
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-                    data.remove(getAdapterPosition());
-                    notifyDataSetChanged();
+                    updateOrderStatus("Ready");
+                    removeItem();
                 }
             });
 
@@ -131,7 +118,7 @@ public class MessOrderAdapter extends RecyclerView.Adapter<MessOrderAdapter.View
                     View dialogView = inflater.inflate(R.layout.alert_dialog_cancel_snacks, null);
                     dialogBuilder.setView(dialogView);
 
-                    Spinner cancelSpinner = (Spinner) dialogView.findViewById(R.id.cancel_order_spinner);
+                    final Spinner cancelSpinner = (Spinner) dialogView.findViewById(R.id.cancel_order_spinner);
                     String[] arraySpinner = new String[]{"0","1", "2", "3", "4", "5"};
                     ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(view.getRootView().getContext(),
                             android.R.layout.simple_list_item_1, arraySpinner);
@@ -140,7 +127,9 @@ public class MessOrderAdapter extends RecyclerView.Adapter<MessOrderAdapter.View
 
                     dialogBuilder.setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
+                            updateOrderStatus("CANCELLED (Availability :"+ cancelSpinner.getSelectedItem().toString()+" )");
                             dialog.cancel();
+                            removeItem();
                         }
                     });
                     dialogBuilder.setNegativeButton("DENY", new DialogInterface.OnClickListener() {
@@ -156,10 +145,43 @@ public class MessOrderAdapter extends RecyclerView.Adapter<MessOrderAdapter.View
             });
 
         }
-    }
-public void removeItem()
-{
+        public void removeItem()
+        {
+            ref = FirebaseDatabase.getInstance().getReference();
+            Query foodItemQuery= ref.child("snacks_order").orderByChild("foodItemName").equalTo(orderedFoodItemTextView.getText().toString());
 
-}
+            foodItemQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+
+                        snapshot.getRef().removeValue();
+                        break;
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
+            data.remove(getAdapterPosition());
+            notifyDataSetChanged();
+
+
+        }
+
+        public void updateOrderStatus(String orderStatus)
+        {
+            firebaseDatabase=FirebaseDatabase.getInstance();
+            orderViewedDatabaseReference=firebaseDatabase.getReference().child("order_viewed");
+            OrderFormat obj1=new OrderFormat(orderedFoodItemTextView.getText().toString(),userTextView.getText().toString(),orderTimeTextView.getText().toString(),orderStatus);
+            orderViewedDatabaseReference.push().setValue(obj1);
+        }
+
+    }
+
 
 }
