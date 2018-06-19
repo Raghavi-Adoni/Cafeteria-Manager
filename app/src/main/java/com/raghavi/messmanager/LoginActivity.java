@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView mStatusView;
 
 
+
     SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +86,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             sharedPreferences.edit().putString("User_Email_id",user.getEmail()).apply();
             Log.i("Email id",user.getEmail());
+            sharedPreferences.edit().putBoolean("UserNotLoggedIn", false).apply();
             Intent i=new Intent(getApplicationContext(),IdentifyUserActivity.class);
             startActivity(i);
 
@@ -104,5 +106,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
         }
+    }
+    public void loggedInButtonClick(View view)
+    {
+        startActivity(new Intent(this,IdentifyUserActivity.class));
     }
 }

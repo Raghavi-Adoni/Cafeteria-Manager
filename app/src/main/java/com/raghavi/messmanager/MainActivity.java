@@ -52,8 +52,16 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         sharedPreferences = getApplicationContext().getSharedPreferences("com.raghavi.messmanager", Context.MODE_PRIVATE);
-
         mFirebaseDatabase = FirebaseDatabase.getInstance();
+
+        if (sharedPreferences.getBoolean("UserNotLoggedIn", true)|| sharedPreferences.getString("UserType","None").equals("None")) {
+
+            Toast.makeText(this,"Login Unsuccessful",Toast.LENGTH_LONG).show();
+
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
+
+        }
 
         //setting up tabs
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_Layout);
@@ -97,13 +105,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //starts login activity
-        if (!sharedPreferences.getBoolean("CheckUserLoggedIn", false)) {
 
-            sharedPreferences.edit().putBoolean("CheckUserLoggedIn", true).apply();
-            Intent i = new Intent(this, LoginActivity.class);
-            startActivity(i);
-
-        }
         userType=sharedPreferences.getString("UserType","None");
 
     }

@@ -11,6 +11,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -63,6 +64,7 @@ public class OrderSnacksActivity extends AppCompatActivity {
     {
        // String mytime = java.text.DateFormat.getTimeInstance().format(Calendar.getInstance().getTime());
 
+        Toast.makeText(this,"Order Placed Successfully",Toast.LENGTH_SHORT).show();
         OrderFormat obj1=new OrderFormat(snacksSelectionSpinner.getSelectedItem().toString(),userID,dateTime,"Not Ready");
         snacksOrderDatabaseReference.push().setValue(obj1);
        // userDatabaseReference.push().setValue(uniqueID);

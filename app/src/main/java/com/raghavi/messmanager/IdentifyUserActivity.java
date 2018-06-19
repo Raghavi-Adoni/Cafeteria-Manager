@@ -44,7 +44,7 @@ public class IdentifyUserActivity extends AppCompatActivity {
 
         mEmployeeDatabaseReference.push().setValue(userEmailID);
 
-        Intent i = new Intent(this, MainActivity.class);
+        Intent i = new Intent(this, PasswordActivity.class);
         sharedPreferences.edit().putString("UserType","Employee").apply();
         startActivity(i);
 
@@ -61,5 +61,9 @@ public class IdentifyUserActivity extends AppCompatActivity {
         finish();
 
        // userEmailID=sharedPreferences.getString("User_Email_id", "Unidentified");
+    }
+    public void onClick(View view)
+    {
+        startActivity(new Intent(this,MainActivity.class));
     }
 }

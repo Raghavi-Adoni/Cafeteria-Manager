@@ -7,11 +7,11 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
     android:background="#ADD8E6"
-android:weightSum="4">
+android:weightSum="5">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="35dp"
         android:layout_weight="3"
         android:gravity="center_horizontal"
         android:orientation="vertical">
@@ -36,14 +36,16 @@ android:weightSum="4">
             android:layout_height="wrap_content"
             android:text="signed_out" />
 
+
     </LinearLayout>
 
 
 <RelativeLayout
     android:layout_width="fill_parent"
     android:layout_height="0dp"
-    android:layout_weight="1"
+    android:layout_weight="2"
     android:gravity="center_vertical">
+
 
     <Button
         android:id="@+id/sign_in_button"
@@ -54,6 +56,17 @@ android:weightSum="4">
         android:text="sign_in"
         android:visibility="visible" />
 
+    <Button
+        android:id="@+id/logged_in_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sign_in_button"
+        android:layout_alignLeft="@+id/sign_in_button"
+        android:layout_alignStart="@+id/sign_in_button"
+        android:layout_marginBottom="17dp"
+        android:text="Logged In"
+        android:onClick="loggedInButtonClick"/>
 
 
 </RelativeLayout>

@@ -63,5 +63,13 @@
         android:textSize="30sp"
         />
 
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/userType_chosen_button"
+        android:layout_marginBottom="32dp"
+        android:onClick="onClick"
+        android:text="ALREADY CHOSEN" />
 </RelativeLayout>
