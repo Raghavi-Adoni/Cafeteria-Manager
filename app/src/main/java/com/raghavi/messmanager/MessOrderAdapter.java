@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,7 +76,8 @@ public class MessOrderAdapter extends RecyclerView.Adapter<MessOrderAdapter.View
 
         public TextView orderedFoodItemTextView;
         public TextView userTextView;
-        public TextView orderTimeTextView; 
+        public TextView orderTimeTextView;
+
         public Button cancelOrderButton;
         public Button orderReadyButton;
 
@@ -181,8 +183,8 @@ public class MessOrderAdapter extends RecyclerView.Adapter<MessOrderAdapter.View
         {
             firebaseDatabase=FirebaseDatabase.getInstance();
             orderViewedDatabaseReference=firebaseDatabase.getReference().child("order_viewed");
-             uniqueID=orderTimeTextView.getText().toString().substring(10)+userTextView.getText().toString().substring(5);
-            OrderFormat obj1=new OrderFormat(orderedFoodItemTextView.getText().toString(),userTextView.getText().toString(),orderTimeTextView.getText().toString(),orderStatus,uniqueID);
+             //uniqueID=orderTimeTextView.getText().toString().substring(10)+userTextView.getText().toString().substring(5);
+            OrderFormat obj1=new OrderFormat(orderedFoodItemTextView.getText().toString(),userTextView.getText().toString(), DateFormat.format("dd-MM-yyyy hh:mm:ss", new java.util.Date()).toString(),orderStatus);
             orderViewedDatabaseReference.push().setValue(obj1);
         }
 

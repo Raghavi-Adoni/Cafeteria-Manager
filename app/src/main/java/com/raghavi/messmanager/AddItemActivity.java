@@ -55,6 +55,8 @@ public class AddItemActivity extends AppCompatActivity {
 
                 }
                 else {
+                    Toast.makeText(getApplicationContext(),"Order Placed Successfully",Toast.LENGTH_SHORT).show();
+
                     if (tabType.equals("Snacks")) {
                         SnacksFragment.dataset.add(obj);
                         SnacksDatabaseReference.push().setValue(foodItemNameString);

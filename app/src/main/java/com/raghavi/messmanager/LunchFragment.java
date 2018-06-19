@@ -25,6 +25,7 @@ import static com.raghavi.messmanager.AddItemActivity.SnacksDatabaseReference;
 import static com.raghavi.messmanager.MainActivity.mFirebaseDatabase;
 import  static com.raghavi.messmanager.MainActivity.tabType;
 import static com.raghavi.messmanager.AddItemActivity.LunchDatabaseReference;
+import static com.raghavi.messmanager.MainActivity.userType;
 
 /**
  * Created by Raghavi on 6/3/2018.
@@ -76,12 +77,17 @@ public class LunchFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext(),AddItemActivity.class);
-                tabType="Lunch";
-                startActivity(i);
+                if(userType.equals("Student"))
+                {
+                    orderSnacks();
+                }
+                else if(userType.equals("Employee"))
+                {
+                    changeMenu();
+                    // viewOrders();
+                }
             }
         });
-
 
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -99,5 +105,17 @@ public class LunchFragment extends Fragment {
         LunchDatabaseReference.removeEventListener(eventListener);
         eventListener=null;
 
+    }
+
+    public void orderSnacks()
+    {
+        startActivity(new Intent(getContext(),OrderSnacksActivity.class));
+    }
+
+    public void changeMenu()
+    {
+        Intent i = new Intent(getContext(),AddItemActivity.class);
+        tabType="Lunch";
+        startActivity(i);
     }
 }

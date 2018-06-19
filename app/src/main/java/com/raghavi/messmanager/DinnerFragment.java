@@ -25,6 +25,8 @@ import static com.raghavi.messmanager.AddItemActivity.SnacksDatabaseReference;
 import static com.raghavi.messmanager.MainActivity.mFirebaseDatabase;
 import  static com.raghavi.messmanager.MainActivity.tabType;
 import static com.raghavi.messmanager.AddItemActivity.DinnerDatabaseReference;
+import static com.raghavi.messmanager.MainActivity.userType;
+
 /**
  * Created by Raghavi on 6/3/2018.
  */
@@ -69,17 +71,22 @@ public class DinnerFragment extends Fragment {
 
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+
         FloatingActionButton fab=(FloatingActionButton)view.findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext(),AddItemActivity.class);
-                //sharedPreferences.edit().putString("CurrentFragment","Dinner").apply();
-                tabType="Dinner";
-                startActivity(i);
+                if(userType.equals("Student"))
+                {
+                    orderSnacks();
+                }
+                else if(userType.equals("Employee"))
+                {
+                    changeMenu();
+                    // viewOrders();
+                }
             }
         });
-
 
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -100,5 +107,16 @@ public class DinnerFragment extends Fragment {
         DinnerDatabaseReference.removeEventListener(eventListener);
         eventListener=null;
 
+    }
+    public void orderSnacks()
+    {
+        startActivity(new Intent(getContext(),OrderSnacksActivity.class));
+    }
+
+    public void changeMenu()
+    {
+        Intent i = new Intent(getContext(),AddItemActivity.class);
+        tabType="Dinner";
+        startActivity(i);
     }
 }

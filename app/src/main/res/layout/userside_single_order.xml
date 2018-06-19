@@ -25,10 +25,20 @@
         android:layout_marginTop="13dp"
         android:text="TextView"
         android:textSize="20sp" />
+    <TextView
+        android:id="@+id/order_ready_time_text_view_user_side"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/order_status_text_view_user_side"
+        android:layout_marginTop="13dp"
+        android:text="TextView"
+        android:textSize="20sp" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/order_status_text_view_user_side"
+        android:layout_below="@id/order_ready_time_text_view_user_side"
         android:id="@+id/user_side_okay_button"
         android:text="OK"
         android:layout_marginTop="15dp"/>

@@ -27,8 +27,11 @@ public class OrderSnacksActivity extends AppCompatActivity {
     ArrayAdapter<FoodItemData> snacksAdapter;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference snacksOrderDatabaseReference;
+   // private DatabaseReference userDatabaseReference;
 
-    public String uniqueID;
+   // public String uniqueID;
+    public static String userID;
+    public String dateTime;
 
     SharedPreferences sharedPreferences;
 
@@ -45,8 +48,13 @@ public class OrderSnacksActivity extends AppCompatActivity {
         snacksAdapter=new ArrayAdapter<FoodItemData>(this,R.layout.spinner_item,dataset);
         snacksSelectionSpinner.setAdapter(snacksAdapter);
 
+        userID=sharedPreferences.getString("User_Email_id", "Unidentified");
+        dateTime = (DateFormat.format("dd-MM-yyyy hh:mm:ss", new java.util.Date()).toString());
+     //   uniqueID=dateTime.substring(10)+userID.substring(5);
+
         firebaseDatabase = FirebaseDatabase.getInstance();
         snacksOrderDatabaseReference = firebaseDatabase.getReference().child("snacks_order");
+//        userDatabaseReference=firebaseDatabase.getReference().child("students").child(userID);
 
 
     }
@@ -54,12 +62,10 @@ public class OrderSnacksActivity extends AppCompatActivity {
     public void onOrderSnacksButtonCLick(View view)
     {
        // String mytime = java.text.DateFormat.getTimeInstance().format(Calendar.getInstance().getTime());
-        String dateTime = (DateFormat.format("dd-MM-yyyy hh:mm:ss", new java.util.Date()).toString());
-        String userID=sharedPreferences.getString("User_Email_id", "Unidentified");
-        String uniqueID=dateTime.substring(10)+userID.substring(5);
 
-        OrderFormat obj1=new OrderFormat(snacksSelectionSpinner.getSelectedItem().toString(),userID,dateTime,"Not Ready",uniqueID);
+        OrderFormat obj1=new OrderFormat(snacksSelectionSpinner.getSelectedItem().toString(),userID,dateTime,"Not Ready");
         snacksOrderDatabaseReference.push().setValue(obj1);
+       // userDatabaseReference.push().setValue(uniqueID);
 
        // obj.onTokenRefresh();
     }

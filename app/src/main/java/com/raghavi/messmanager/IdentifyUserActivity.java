@@ -35,29 +35,31 @@ public class IdentifyUserActivity extends AppCompatActivity {
        mUsersDatabaseReference = firebaseDatabase.getReference().child("students");
         mEmployeeDatabaseReference= firebaseDatabase.getReference().child("employee");
 
-       // userEmailID=sharedPreferences.getString("User_Email_id", "Unidentified");
+        userEmailID=sharedPreferences.getString("User_Email_id", "Unidentified");
     }
 
    public void onMessPersonButtonClick(View view)
     {
         //mUsersDatabaseReference.push().setValue(sharedPreferences.getString("User_Email_id", "Unidentified"));
 
-        mUsersDatabaseReference.push().setValue(userEmailID);
+        mEmployeeDatabaseReference.push().setValue(userEmailID);
+
         Intent i = new Intent(this, MainActivity.class);
         sharedPreferences.edit().putString("UserType","Employee").apply();
         startActivity(i);
-        finish();
+
 
     }
 
     public void onStudentRadioButtonClick(View view) {
-        mEmployeeDatabaseReference.push().setValue(userEmailID);
 
+
+        mUsersDatabaseReference.push().setValue(userEmailID);
         Intent i = new Intent(this, MainActivity.class);
         sharedPreferences.edit().putString("UserType","Student").apply();
         startActivity(i);
         finish();
 
-        userEmailID=sharedPreferences.getString("User_Email_id", "Unidentified");
+       // userEmailID=sharedPreferences.getString("User_Email_id", "Unidentified");
     }
 }

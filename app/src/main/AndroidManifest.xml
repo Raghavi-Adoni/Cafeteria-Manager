@@ -21,12 +21,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".IdentifyUserActivity" />
+        <activity
+            android:name=".IdentifyUserActivity"
+            android:noHistory="true" />
         <activity android:name=".AddItemActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".OrderSnacksActivity" />
         <activity android:name=".ViewOrderActivity" />
-        <activity android:name=".UsersViewOrdersActivity"></activity>
+        <activity android:name=".UsersViewOrdersActivity" />
+        <activity android:name=".PasswordActivity"></activity>
     </application>
 
 </manifest>
