@@ -160,9 +160,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_orders) {
+         if (id == R.id.nav_orders) {
             if(userType.equals("Employee")) {
                 startActivity(new Intent(this, ViewOrderActivity.class));
             }
@@ -171,11 +169,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(this, UsersViewOrdersActivity.class));
             }
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
+        }   else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
