@@ -38,7 +38,10 @@ import static com.firebase.ui.auth.AuthUI.*;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
+/*static
+{
+    FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+}*/
     protected static FirebaseDatabase mFirebaseDatabase;
 
     public static String userType = "";
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+       // FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         sharedPreferences = getApplicationContext().getSharedPreferences("com.raghavi.messmanager", Context.MODE_PRIVATE);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 

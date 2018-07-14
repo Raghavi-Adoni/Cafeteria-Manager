@@ -5,13 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import static com.raghavi.messmanager.SnacksFragment.dataset;
 import static java.lang.Integer.parseInt;
 
 /**
@@ -26,15 +23,11 @@ public class MessMenuAdapter extends RecyclerView.Adapter<MessMenuAdapter.ViewHo
     Context context;
 
 
-    public MessMenuAdapter(ArrayList<FoodItemData> data) {
+    public MessMenuAdapter(ArrayList<FoodItemData> data,Context context) {
         this.data = data;
+        this.context=context;
 
     }
-
-    public MessMenuAdapter(Context context) {
-        this.context = context;
-    }
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -47,8 +40,6 @@ public class MessMenuAdapter extends RecyclerView.Adapter<MessMenuAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.singleFoodItemTextView.setText(String.valueOf(data.get(position).getFoodItemName()));
-
-
     }
 
 
@@ -58,6 +49,11 @@ public class MessMenuAdapter extends RecyclerView.Adapter<MessMenuAdapter.ViewHo
         return data.size();
     }
 
+    public String getObject(int pos)
+    {
+        FoodItemData obj= data.get(pos);
+        return obj.getFoodItemName();
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -68,5 +64,4 @@ public class MessMenuAdapter extends RecyclerView.Adapter<MessMenuAdapter.ViewHo
             this.singleFoodItemTextView = (TextView) itemView.findViewById(R.id.single_food_item_textview);
         }
     }
-
 }
