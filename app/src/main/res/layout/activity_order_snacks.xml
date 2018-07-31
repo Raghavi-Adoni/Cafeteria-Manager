@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ADD8E6"
+    android:background="@color/white"
     tools:context="com.raghavi.messmanager.OrderSnacksActivity">
 
     <TextView
@@ -31,13 +31,13 @@
         <Spinner
             android:id="@+id/snacks_selection_spinner"
             android:layout_width="200dp"
-            android:popupBackground="#008080"
+            android:popupBackground="@color/colorPrimary"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:background="#008080"
+            android:background="@color/colorPrimary"
             android:gravity="center"
             android:spinnerStyle="@android:style/Widget.Spinner.DropDown"
             android:theme="@style/MatchSpinnerTheme" />
