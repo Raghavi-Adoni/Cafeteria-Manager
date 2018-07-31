@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -36,6 +37,12 @@ public class IdentifyUserActivity extends AppCompatActivity {
         mEmployeeDatabaseReference= firebaseDatabase.getReference().child("employee");
 
         userEmailID=sharedPreferences.getString("User_Email_id", "Unidentified");
+
+        if(!userEmailID.endsWith("@cumminscollege.in"))
+        {
+            Toast.makeText(this,"Please use cummins college email id",Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
    public void onMessPersonButtonClick(View view)
