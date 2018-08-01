@@ -26,7 +26,7 @@ public class AddItemActivity extends AppCompatActivity {
     Button addItemButton;
     SharedPreferences sharedPreferences;
 
-   //
+
     protected static DatabaseReference SnacksDatabaseReference;
     private FirebaseDatabase firebaseDatabase;
     protected static DatabaseReference BreakFastDatabaseReference;

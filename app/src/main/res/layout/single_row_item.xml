@@ -24,7 +24,8 @@
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary">
+            android:background="@color/white"
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/single_food_item_textview"
