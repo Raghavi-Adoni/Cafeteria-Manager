@@ -69,45 +69,8 @@ public class UsersViewOrdersActivity extends AppCompatActivity {
             }
 
         };
-      /*  valueEventListener=new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(final DataSnapshot ds:dataSnapshot.getChildren())
 
-                {
-                    uniqueIDvalueEventListener=new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                                if(String.valueOf(ds.child("uniqueID").getValue()).equals(String.valueOf(dataSnapshot1.child("uniqueID").getValue())))
-                                {
-                                    UsersViewOrderFormat obj = new UsersViewOrderFormat(String.valueOf(ds.child("foodItemName").getValue()),String.valueOf(ds.child("orderStatus").getValue()));
-                                    userOrdersDataset.add(obj);
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    };
-
-                }
-                usersOrderAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-
-        };
-*/
         userOrdersDatabaseReference.addListenerForSingleValueEvent(valueEventListener);
-  //      userDatabaseReference.addListenerForSingleValueEvent(uniqueIDvalueEventListener);
-
-
         userOrdersRecyclerView=findViewById(R.id.users_orders_recycler_view);
         usersOrderAdapter=new UsersOrderAdapter(userOrdersDataset,this);
 

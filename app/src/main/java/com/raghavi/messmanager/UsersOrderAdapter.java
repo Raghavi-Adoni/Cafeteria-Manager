@@ -86,15 +86,30 @@ public class UsersOrderAdapter extends RecyclerView.Adapter<UsersOrderAdapter.Vi
         public void removeItem()
         {
             ref = FirebaseDatabase.getInstance().getReference();
-            Query foodItemQuery= ref.child("order_viewed").orderByChild("foodItemName").equalTo(userViewOrderfoodItemTextview.getText().toString());
+            Query foodItemQuery= ref.child("order_viewed").orderByChild("foodItemName").equalTo(userViewOrderfoodItemTextview.getText().toString()) ;
+            //ref.child("order_viewed").orderByChild("time").equalTo(userOrderTime.getText().toString());
 
             foodItemQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                        Query checktime= ref.child("order_viewed").orderByChild("time").equalTo(userOrderTime.getText().toString());
 
-                        snapshot.getRef().removeValue();
-                        break;
+                        checktime.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot ds:dataSnapshot.getChildren()) {
+                                    ds.getRef().removeValue();
+                                    data.remove(getAdapterPosition());
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
                     }
                 }
 
@@ -104,7 +119,7 @@ public class UsersOrderAdapter extends RecyclerView.Adapter<UsersOrderAdapter.Vi
                 }
             });
 
-            data.remove(getAdapterPosition());
+
             notifyDataSetChanged();
         }
 
