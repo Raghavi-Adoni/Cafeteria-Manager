@@ -20,14 +20,18 @@
         </activity>
         <activity
             android:name=".IdentifyUserActivity"
-            android:noHistory="true" />
+            android:noHistory="true" >
+
+        </activity>
         <activity android:name=".AddItemActivity" />
         <activity android:name=".LoginActivity"
-            > <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".OrderSnacksActivity" />
         <activity android:name=".ViewOrderActivity" />
         <activity android:name=".UsersViewOrdersActivity" />
