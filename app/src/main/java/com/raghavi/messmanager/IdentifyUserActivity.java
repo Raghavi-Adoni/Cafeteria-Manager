@@ -99,24 +99,7 @@ public class IdentifyUserActivity extends AppCompatActivity {
 
         }
 
-            /*if(!userEmailID.endsWith("@cumminscollege.in"))
-            {
-                Toast.makeText(this, "Please use cummins college email id", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-           /* if(flag==1) {
-                mUsersDatabaseReference.push().setValue(userEmailID);
-                Intent i = new Intent(this, MainActivity.class);
-                sharedPreferences.edit().putString("UserType", "Student").apply();
-                startActivity(i);
-                finish();
-            }
-            else
-           if(flag!=1)
-            {
-                Toast.makeText(this, "Access allowed to only hostel students", Toast.LENGTH_SHORT).show();
-                finish();
-            }*/
+
     }
 
 
